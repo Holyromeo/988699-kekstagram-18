@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Raman Kastsiushkin](https://up.htmlacademy.ru/javascript/18/user/988699).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий Прибитков] (https://htmlacademy.ru/profile/id1061259).
 
 ---
 
