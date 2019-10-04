@@ -40,12 +40,20 @@ function getSomeUserComments() {
   };
 }
 
+function getSomeUserArr() {
+  var someCommentsArr = [];
+  for (var j = 0; j < AUTHORS.length; j++) {
+    someCommentsArr.push(getSomeUserComments(j));
+  }
+  return someCommentsArr;
+}
+
 function getSomeUserPhotoNotice(number) {
   return {
     url: 'photos/' + number + '.jpg',
     description: getRandomAttribute(DESCRIPTION),
     likes: getRandomInRange(15, 200),
-    comments: getSomeUserComments()
+    comments: getRandomAttribute(getSomeUserArr())
   };
 }
 
@@ -63,7 +71,7 @@ function photoWithReviews(photoDescription) {
   var photoElement = picture.cloneNode(true);
   photoElement.querySelector('.picture__img').src = photoDescription.url;
   photoElement.querySelector('.picture__likes').textContent = photoDescription.likes;
-  photoElement.querySelector('.picture__comments').textContent = photoDescription.comments.neededString;
+  photoElement.querySelector('.picture__comments').textContent = photoDescription.comments.message;
   return photoElement;
 }
 
