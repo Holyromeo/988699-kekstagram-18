@@ -22,7 +22,7 @@ document.querySelector('.pictures__title').classList.remove('visually-hidden');
 var similarListElement = document.querySelector('.pictures');
 
 var picture = document.querySelector('#picture')
-    .content;
+  .content;
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -63,7 +63,7 @@ function photoWithReviews(photoDescription) {
   var photoElement = picture.cloneNode(true);
   photoElement.querySelector('.picture__img').src = photoDescription.url;
   photoElement.querySelector('.picture__likes').textContent = photoDescription.likes;
-  photoElement.querySelector('.picture__comments').textContent = photoDescription.comments;
+  photoElement.querySelector('.picture__comments').textContent = photoDescription.comments.neededString;
   return photoElement;
 }
 
