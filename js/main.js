@@ -21,8 +21,7 @@ document.querySelector('.pictures__title').classList.remove('visually-hidden');
 
 var similarListElement = document.querySelector('.pictures');
 
-var picture = document.querySelector('#picture')
-  .content;
+var picture = document.querySelector('#picture').content;
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,46 +31,38 @@ function getRandomAttribute(randomArr) {
   return randomArr[Math.floor(Math.random() * randomArr.length)];
 }
 
-function getSomeUserComments() {
+function getRandomComments() {
   return {
     avatar: 'img/avatar-' + getRandomInRange(1, 6) + '.svg',
-    message: getRandomAttribute(COMMENTS),
+    message: getRandomAttribute(COMMENTS.length),
     name: getRandomAttribute(AUTHORS)
   };
 }
 
-function getSomeUserArr() {
-  var someCommentsArr = [];
-  for (var j = 0; j < AUTHORS.length; j++) {
-    someCommentsArr.push(getSomeUserComments(j));
-  }
-  return someCommentsArr;
-}
-
-function getSomeUserPhotoNotice(number) {
+function getPhotoNotice(number) {
   return {
     url: 'photos/' + number + '.jpg',
     description: getRandomAttribute(DESCRIPTION),
     likes: getRandomInRange(15, 200),
-    comments: getRandomAttribute(getSomeUserArr())
+    comments: getRandomAttribute(COMMENTS)
   };
 }
 
-function getPhotoDescriptionArr() {
+function getPhotoDescription() {
   var photoDescriptionArr = [];
   for (var k = 0; k < 25; k++) {
-    photoDescriptionArr.push(getSomeUserPhotoNotice(k + 1));
+    photoDescriptionArr.push(getPhotoNotice(k + 1));
   }
   return photoDescriptionArr;
 }
 
-var newPhotoDescription = getPhotoDescriptionArr();
+var newPhotoDescription = getPhotoDescription();
 
 function photoWithReviews(photoDescription) {
   var photoElement = picture.cloneNode(true);
   photoElement.querySelector('.picture__img').src = photoDescription.url;
   photoElement.querySelector('.picture__likes').textContent = photoDescription.likes;
-  photoElement.querySelector('.picture__comments').textContent = photoDescription.comments.message;
+  photoElement.querySelector('.picture__comments').textContent = photoDescription.comments.length;
   return photoElement;
 }
 
