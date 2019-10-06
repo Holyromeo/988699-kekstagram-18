@@ -31,14 +31,6 @@ function getRandomAttribute(randomArr) {
   return randomArr[Math.floor(Math.random() * randomArr.length)];
 }
 
-function getRandomComments() {
-  return {
-    avatar: 'img/avatar-' + getRandomInRange(1, 6) + '.svg',
-    message: getRandomAttribute(COMMENTS.length),
-    name: getRandomAttribute(AUTHORS)
-  };
-}
-
 function getPhotoNotice(number) {
   return {
     url: 'photos/' + number + '.jpg',
