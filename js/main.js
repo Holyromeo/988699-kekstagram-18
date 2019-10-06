@@ -65,3 +65,4 @@ for (var i = 0; i < newPhotoDescription.length; i++) {
 }
 
 similarListElement.appendChild(fragment);
+
