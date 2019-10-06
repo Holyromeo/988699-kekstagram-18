@@ -15,8 +15,6 @@ var DESCRIPTION = [
   'Мне понравилась эта фотография, потому что она четко передает чувства и эмоции присутствующих на ней.'
 ];
 
-var AUTHORS = ['Иван', 'Хуан', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-
 document.querySelector('.pictures__title').classList.remove('visually-hidden');
 
 var similarListElement = document.querySelector('.pictures');
