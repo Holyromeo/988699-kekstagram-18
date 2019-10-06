@@ -21,7 +21,8 @@ document.querySelector('.pictures__title').classList.remove('visually-hidden');
 
 var similarListElement = document.querySelector('.pictures');
 
-var picture = document.querySelector('#picture').content;
+var picture = document.querySelector('#picture')
+  .content;
 
 function getRandomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -65,4 +66,3 @@ for (var i = 0; i < newPhotoDescription.length; i++) {
 }
 
 similarListElement.appendChild(fragment);
-
