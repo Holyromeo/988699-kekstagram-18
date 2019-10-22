@@ -107,15 +107,11 @@ function inRange(someValue, a, b) {
 }
 
 function downsizingImg(someValue) {
-  if (inRange(parseInt(valueSizeImg.value, 10))) {
-    return parseInt(someValue, 10) - parseInt(resizeStep, 10);
-  } return false;
+  return parseInt(someValue, 10) - parseInt(resizeStep, 10);
 }
 
 function upsizingImg(someValue) {
-  if (inRange(parseInt(valueSizeImg.value, 10))) {
-    return parseInt(someValue, 10) + parseInt(resizeStep, 10);
-  } return false;
+  return parseInt(someValue, 10) + parseInt(resizeStep, 10);
 }
 
 smallerSizeImgBtn.addEventListener('click', function () {
