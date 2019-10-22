@@ -73,18 +73,18 @@ var closeChangeImgBtn = document.getElementById('upload-cancel');
 function onChangeImgEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closeChangeImg();
-  };
+  }
 }
 
 function openChangeImg() {
   changeImg.classList.remove('hidden');
   document.addEventListener('keydown', onChangeImgEscPress);
-};
+}
 
 function closeChangeImg() {
   changeImg.classList.add('hidden');
-  document.getElementById('upload-file').value = "";
-};
+  document.getElementById('upload-file').value = '';
+}
 
 setup.addEventListener('change', function () {
   openChangeImg();
@@ -107,25 +107,27 @@ function inRange(someValue, a, b) {
 }
 
 function downsizingImg(someValue) {
-  if (inRange(parseInt(valueSizeImg.value))) {
-  return parseInt(someValue, 10) - parseInt(resizeStep, 10);}
+  if (inRange(parseInt(valueSizeImg.value, 10))) {
+    return parseInt(someValue, 10) - parseInt(resizeStep, 10);
+  } return false;
 }
 
 function upsizingImg(someValue) {
-  if (inRange(parseInt(valueSizeImg.value))) {
-  return parseInt(someValue, 10) + parseInt(resizeStep, 10);}
+  if (inRange(parseInt(valueSizeImg.value, 10))) {
+    return parseInt(someValue, 10) + parseInt(resizeStep, 10);
+  } return false;
 }
 
 smallerSizeImgBtn.addEventListener('click', function () {
-  if (inRange(parseInt(valueSizeImg.value), 50, 100)) {
+  if (inRange(parseInt(valueSizeImg.value, 10), 50, 100)) {
     valueSizeImg.value = parseInt(downsizingImg(valueSizeImg.value), 10) + '%';
-    resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value) / 100 + ')';
+    resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
   }
 });
 
 biggerSizeImgBtn.addEventListener('click', function () {
-  if (inRange(parseInt(valueSizeImg.value), 25, 75)) {
+  if (inRange(parseInt(valueSizeImg.value, 10), 25, 75)) {
     valueSizeImg.value = parseInt(upsizingImg(valueSizeImg.value), 10) + '%';
-    resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value) / 100 + ')';
+    resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
   }
 });
