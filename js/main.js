@@ -64,3 +64,68 @@ for (var i = 0; i < newPhotoDescription.length; i++) {
 }
 
 similarListElement.appendChild(fragment);
+
+var ESC_KEYCODE = 27;
+var setup = document.getElementById('upload-file');
+var changeImg = document.querySelector('.img-upload__overlay');
+var closeChangeImgBtn = document.getElementById('upload-cancel');
+
+function onChangeImgEscPress(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closeChangeImg();
+  };
+}
+
+function openChangeImg() {
+  changeImg.classList.remove('hidden');
+  document.addEventListener('keydown', onChangeImgEscPress);
+};
+
+function closeChangeImg() {
+  changeImg.classList.add('hidden');
+  document.getElementById('upload-file').value = "";
+};
+
+setup.addEventListener('change', function () {
+  openChangeImg();
+  document.querySelector('.scale__control--value').value = '100%';
+});
+
+closeChangeImgBtn.addEventListener('click', function () {
+  closeChangeImg();
+  resizableImg.removeAttribute('style');
+});
+
+var smallerSizeImgBtn = document.querySelector('.scale__control--smaller');
+var biggerSizeImgBtn = document.querySelector('.scale__control--bigger');
+var valueSizeImg = document.querySelector('.scale__control--value');
+var resizableImg = document.querySelector('.img-upload__preview');
+var resizeStep = '25%';
+
+function inRange(someValue, a, b) {
+  return someValue >= a && someValue <= b;
+}
+
+function downsizingImg(someValue) {
+  if (inRange(parseInt(valueSizeImg.value))) {
+  return parseInt(someValue, 10) - parseInt(resizeStep, 10);}
+}
+
+function upsizingImg(someValue) {
+  if (inRange(parseInt(valueSizeImg.value))) {
+  return parseInt(someValue, 10) + parseInt(resizeStep, 10);}
+}
+
+smallerSizeImgBtn.addEventListener('click', function () {
+  if (inRange(parseInt(valueSizeImg.value), 50, 100)) {
+    valueSizeImg.value = parseInt(downsizingImg(valueSizeImg.value), 10) + '%';
+    resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value) / 100 + ')';
+  }
+});
+
+biggerSizeImgBtn.addEventListener('click', function () {
+  if (inRange(parseInt(valueSizeImg.value), 25, 75)) {
+    valueSizeImg.value = parseInt(upsizingImg(valueSizeImg.value), 10) + '%';
+    resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value) / 100 + ')';
+  }
+});
