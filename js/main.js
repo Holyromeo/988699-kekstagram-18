@@ -21,16 +21,6 @@ var valueSizeImg = document.querySelector('.scale__control--value');
 var resizableImg = document.querySelector('.img-upload__preview');
 var resizeStep = '25%';
 
-var originalEffect = document.getElementById('effect-none');
-var chromeEffect = document.getElementById('effect-chrome');
-var sepiaEffect = document.getElementById('effect-sepia');
-var marvinEffect = document.getElementById('effect-marvin');
-var phobosEffect = document.getElementById('effect-phobos');
-var heatEffect = document.getElementById('effect-heat');
-var changeImgEffect = document.querySelector('.img-upload__preview');
-
-var fieldEffectLevel = document.querySelector('.effect-level');
-
 document.querySelector('.pictures__title').classList.remove('visually-hidden');
 
 var similarListElement = document.querySelector('.pictures');
@@ -112,6 +102,16 @@ closeChangeImgBtn.addEventListener('click', function () {
   closeChangeImg();
   resizableImg.removeAttribute('style');
 });
+
+var originalEffect = document.getElementById('effect-none');
+var chromeEffect = document.getElementById('effect-chrome');
+var sepiaEffect = document.getElementById('effect-sepia');
+var marvinEffect = document.getElementById('effect-marvin');
+var phobosEffect = document.getElementById('effect-phobos');
+var heatEffect = document.getElementById('effect-heat');
+var changeImgEffect = document.querySelector('.img-upload__preview');
+
+var fieldEffectLevel = document.querySelector('.effect-level');
 
 function inRange(someValue, a, b) {
   return someValue >= a && someValue <= b;
