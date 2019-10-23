@@ -15,6 +15,22 @@ var DESCRIPTION = [
   'Мне понравилась эта фотография, потому что она четко передает чувства и эмоции присутствующих на ней.'
 ];
 
+var smallerSizeImgBtn = document.querySelector('.scale__control--smaller');
+var biggerSizeImgBtn = document.querySelector('.scale__control--bigger');
+var valueSizeImg = document.querySelector('.scale__control--value');
+var resizableImg = document.querySelector('.img-upload__preview');
+var resizeStep = '25%';
+
+var originalEffect = document.getElementById('effect-none');
+var chromeEffect = document.getElementById('effect-chrome');
+var sepiaEffect = document.getElementById('effect-sepia');
+var marvinEffect = document.getElementById('effect-marvin');
+var phobosEffect = document.getElementById('effect-phobos');
+var heatEffect = document.getElementById('effect-heat');
+var changeImgEffect = document.querySelector('.img-upload__preview');
+
+var fieldEffectLevel = document.querySelector('.effect-level');
+
 document.querySelector('.pictures__title').classList.remove('visually-hidden');
 
 var similarListElement = document.querySelector('.pictures');
@@ -88,6 +104,7 @@ function closeChangeImg() {
 
 setup.addEventListener('change', function () {
   openChangeImg();
+  hiddenClassAdd();
   document.querySelector('.scale__control--value').value = '100%';
 });
 
@@ -95,12 +112,6 @@ closeChangeImgBtn.addEventListener('click', function () {
   closeChangeImg();
   resizableImg.removeAttribute('style');
 });
-
-var smallerSizeImgBtn = document.querySelector('.scale__control--smaller');
-var biggerSizeImgBtn = document.querySelector('.scale__control--bigger');
-var valueSizeImg = document.querySelector('.scale__control--value');
-var resizableImg = document.querySelector('.img-upload__preview');
-var resizeStep = '25%';
 
 function inRange(someValue, a, b) {
   return someValue >= a && someValue <= b;
@@ -127,3 +138,73 @@ biggerSizeImgBtn.addEventListener('click', function () {
     resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
   }
 });
+
+function addSomeEffect(someClass) {
+  changeImgEffect.classList.add(someClass);
+}
+
+function removeSomeEffect(someClass) {
+  changeImgEffect.classList.remove(someClass);
+}
+
+originalEffect.addEventListener('click', function () {
+  hiddenClassAdd();
+  removeSomeEffect('effects__preview--chrome');
+  removeSomeEffect('effects__preview--sepia');
+  removeSomeEffect('effects__preview--marvin');
+  removeSomeEffect('effects__preview--phobos');
+  removeSomeEffect('effects__preview--heat');
+});
+
+chromeEffect.addEventListener('click', function () {
+  hiddenClassRemove();
+  addSomeEffect('effects__preview--chrome');
+  removeSomeEffect('effects__preview--sepia');
+  removeSomeEffect('effects__preview--marvin');
+  removeSomeEffect('effects__preview--phobos');
+  removeSomeEffect('effects__preview--heat');
+});
+
+sepiaEffect.addEventListener('click', function () {
+  hiddenClassRemove();
+  addSomeEffect('effects__preview--sepia');
+  removeSomeEffect('effects__preview--chrome');
+  removeSomeEffect('effects__preview--marvin');
+  removeSomeEffect('effects__preview--phobos');
+  removeSomeEffect('effects__preview--heat');
+});
+
+marvinEffect.addEventListener('click', function () {
+  hiddenClassRemove();
+  addSomeEffect('effects__preview--marvin');
+  removeSomeEffect('effects__preview--chrome');
+  removeSomeEffect('effects__preview--sepia');
+  removeSomeEffect('effects__preview--phobos');
+  removeSomeEffect('effects__preview--heat');
+});
+
+phobosEffect.addEventListener('click', function () {
+  hiddenClassRemove();
+  addSomeEffect('effects__preview--phobos');
+  removeSomeEffect('effects__preview--chrome');
+  removeSomeEffect('effects__preview--sepia');
+  removeSomeEffect('effects__preview--marvin');
+  removeSomeEffect('effects__preview--heat');
+});
+
+heatEffect.addEventListener('click', function () {
+  hiddenClassRemove();
+  addSomeEffect('effects__preview--heat');
+  removeSomeEffect('effects__preview--chrome');
+  removeSomeEffect('effects__preview--sepia');
+  removeSomeEffect('effects__preview--phobos');
+  removeSomeEffect('effects__preview--marvin');
+});
+
+function hiddenClassAdd() {
+  fieldEffectLevel.classList.add('hidden');
+}
+
+function hiddenClassRemove() {
+  fieldEffectLevel.classList.remove('hidden');
+}
