@@ -5,8 +5,12 @@
   var setup = document.getElementById('upload-file');
   var changeImg = document.querySelector('.img-upload__overlay');
   var closeChangeImgBtn = document.getElementById('upload-cancel');
-  var fieldEffectLevel = document.querySelector('.effect-level');
   var resizableImg = document.querySelector('.img-upload__preview');
+  var fieldEffectLevel = document.querySelector('.effect-level');
+
+  window.ESC_KEYCODE = ESC_KEYCODE;
+  window.hiddenClassAdd = hiddenClassAdd();
+  window.fieldEffectLevel = fieldEffectLevel;
 
   function onChangeImgEscPress(evt) {
     if (evt.keyCode === ESC_KEYCODE) {

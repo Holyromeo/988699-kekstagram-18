@@ -6,6 +6,7 @@
   var valueSizeImg = document.querySelector('.scale__control--value');
   var resizableImg = document.querySelector('.img-upload__preview');
   var resizeStep = '25%';
+  var fieldEffectLevel = document.querySelector('.effect-level');
 
   var originalEffect = document.getElementById('effect-none');
   var chromeEffect = document.getElementById('effect-chrome');
@@ -14,13 +15,10 @@
   var phobosEffect = document.getElementById('effect-phobos');
   var heatEffect = document.getElementById('effect-heat');
 
-  var changeImgEffect = document.querySelector('.img-upload__preview');
-
   var setup = document.querySelector('.effect-level__pin');
   var scaleValue = document.querySelector('.effect-level__depth');
   var filterDefaultValue = 100;
-
-  var fieldEffectLevel = document.querySelector('.effect-level');
+  var overallLength = document.querySelector('.effect-level__line');
 
   function hiddenClassAdd() {
     fieldEffectLevel.classList.add('hidden');
@@ -29,8 +27,6 @@
   function hiddenClassRemove() {
     fieldEffectLevel.classList.remove('hidden');
   }
-
-  window.hiddenClassAdd = hiddenClassAdd();
 
   function inRange(someValue, a, b) {
     return someValue >= a && someValue <= b;
@@ -58,14 +54,6 @@
     }
   });
 
-  function addSomeEffect(someClass) {
-    changeImgEffect.classList.add(someClass);
-  }
-
-  function removeSomeEffect(someClass) {
-    changeImgEffect.classList.remove(someClass);
-  }
-
   function removeChecked() {
     originalEffect.removeAttribute('checked', '');
     chromeEffect.removeAttribute('checked', '');
@@ -75,79 +63,94 @@
     heatEffect.removeAttribute('checked', '');
   }
 
+  function replaceEffect(effect) {
+    resizableImg.className = 'img-upload__preview ' + effect;
+  }
+
+  function startPositionPin() {
+    setup.style.left = filterDefaultValue + '%';
+    scaleValue.style.width = filterDefaultValue + '%';
+  }
+
   originalEffect.addEventListener('click', function () {
     hiddenClassAdd();
-    removeSomeEffect('effects__preview--chrome');
-    removeSomeEffect('effects__preview--sepia');
-    removeSomeEffect('effects__preview--marvin');
-    removeSomeEffect('effects__preview--phobos');
-    removeSomeEffect('effects__preview--heat');
+    replaceEffect('effects__preview--none');
     removeChecked();
     originalEffect.setAttribute('checked', '');
   });
 
   chromeEffect.addEventListener('click', function () {
     hiddenClassRemove();
-    addSomeEffect('effects__preview--chrome');
-    removeSomeEffect('effects__preview--sepia');
-    removeSomeEffect('effects__preview--marvin');
-    removeSomeEffect('effects__preview--phobos');
-    removeSomeEffect('effects__preview--heat');
+    replaceEffect('effects__preview--chrome');
     removeChecked();
     chromeEffect.setAttribute('checked', '');
-    setup.style.left = filterDefaultValue + '%';
-    scaleValue.style.width = filterDefaultValue + '%';
+    startPositionPin();
   });
 
   sepiaEffect.addEventListener('click', function () {
     hiddenClassRemove();
-    addSomeEffect('effects__preview--sepia');
-    removeSomeEffect('effects__preview--chrome');
-    removeSomeEffect('effects__preview--marvin');
-    removeSomeEffect('effects__preview--phobos');
-    removeSomeEffect('effects__preview--heat');
+    replaceEffect('effects__preview--sepia');
     removeChecked();
     sepiaEffect.setAttribute('checked', '');
-    setup.style.left = filterDefaultValue + '%';
-    scaleValue.style.width = filterDefaultValue + '%';
+    startPositionPin();
   });
 
   marvinEffect.addEventListener('click', function () {
     hiddenClassRemove();
-    addSomeEffect('effects__preview--marvin');
-    removeSomeEffect('effects__preview--chrome');
-    removeSomeEffect('effects__preview--sepia');
-    removeSomeEffect('effects__preview--phobos');
-    removeSomeEffect('effects__preview--heat');
+    replaceEffect('effects__preview--marvin');
     removeChecked();
     marvinEffect.setAttribute('checked', '');
-    setup.style.left = filterDefaultValue + '%';
-    scaleValue.style.width = filterDefaultValue + '%';
+    startPositionPin();
   });
 
   phobosEffect.addEventListener('click', function () {
     hiddenClassRemove();
-    addSomeEffect('effects__preview--phobos');
-    removeSomeEffect('effects__preview--chrome');
-    removeSomeEffect('effects__preview--sepia');
-    removeSomeEffect('effects__preview--marvin');
-    removeSomeEffect('effects__preview--heat');
+    replaceEffect('effects__preview--phobos');
     removeChecked();
     phobosEffect.setAttribute('checked', '');
-    setup.style.left = filterDefaultValue + '%';
-    scaleValue.style.width = filterDefaultValue + '%';
+    startPositionPin();
   });
 
   heatEffect.addEventListener('click', function () {
     hiddenClassRemove();
-    addSomeEffect('effects__preview--heat');
-    removeSomeEffect('effects__preview--chrome');
-    removeSomeEffect('effects__preview--sepia');
-    removeSomeEffect('effects__preview--phobos');
-    removeSomeEffect('effects__preview--marvin');
+    replaceEffect('effects__preview--heat');
     removeChecked();
     heatEffect.setAttribute('checked', '');
-    setup.style.left = filterDefaultValue + '%';
-    scaleValue.style.width = filterDefaultValue + '%';
+    startPositionPin();
+  });
+
+  setup.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+
+    var startCoords = evt.clientX;
+    var min = startCoords - scaleValue.getBoundingClientRect().width;
+    var maxLength = parseInt(overallLength.getBoundingClientRect().width, 10);
+    var max = min + maxLength;
+
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+      var currentPosition = moveEvt.clientX;
+
+      var changePosition = currentPosition - min;
+      if (currentPosition <= min) {
+        changePosition = 0;
+      }
+      if (currentPosition >= max) {
+        changePosition = maxLength;
+      }
+
+      scaleValue.style.width = changePosition + 'px';
+      setup.style.left = changePosition + 'px';
+    };
+
+    function onMouseUp(upEvt) {
+      upEvt.preventDefault();
+
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
   });
 })();
