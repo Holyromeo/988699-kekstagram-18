@@ -41,7 +41,7 @@
     });
   }
 
-  var clearPictures = window.debounceJS.debounce(function() {
+  var clearPictures = window.debounceJS.debounce(function () {
     var allPictures = document.querySelectorAll('.picture');
     if (allPictures.length > 0) {
       for (var i = 0; i < allPictures.length; i++) {
