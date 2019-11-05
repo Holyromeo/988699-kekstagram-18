@@ -12,7 +12,7 @@
 
   function onSuccess(data) {
     window.pictureData = data.slice();
-    window.creatPicture.picturesList(window.pictureData);
+    window.createPicture.picturesList(window.pictureData);
   }
 
   function onError(message) {
@@ -53,7 +53,7 @@
 
   function removeAndAddPhotos(parametr) {
     clearPictures();
-    window.creatPicture.picturesList(parametr);
+    window.createPicture.picturesList(parametr);
   }
 
   popularFilter.addEventListener('click', function () {

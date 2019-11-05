@@ -20,7 +20,7 @@
     picturesListElement.appendChild(picturesList);
   });
 
-  window.creatPicture = {
+  window.createPicture = {
     picturesList: createPicturesList
   };
 })();
