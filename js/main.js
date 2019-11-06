@@ -13,14 +13,13 @@
   function onSuccess(data) {
     window.pictureData = data.slice();
     window.createPicture.picturesList(window.pictureData);
+    imgFilters.classList.remove('img-filters--inactive');
   }
 
   function onError(message) {
     errorTemplate.querySelector('.error__title').textContent = message;
     blockForError.appendChild(errorTemplate);
   }
-
-  imgFilters.classList.remove('img-filters--inactive');
 
   function removeActiveClassButton(element1, element2) {
     element1.classList.remove('img-filters__button--active');
