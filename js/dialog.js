@@ -12,6 +12,7 @@
   var blockSuccess = document.querySelector('main');
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var closeBtnSuccess = document.querySelector('#success').content.querySelector('.success__button');
+  var closeBtnError = document.querySelector('#error').content.querySelector('.error__button');
   var blockForError = document.querySelector('main');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
@@ -29,6 +30,12 @@
   function closeSuccessMessge(evt) {
     if (evt.keyCode === window.ESC_KEYCODE) {
       successTemplate.remove();
+    }
+  }
+
+  function closeErrorMessge(evt) {
+    if (evt.keyCode === window.ESC_KEYCODE) {
+      errorTemplate.remove();
     }
   }
 
@@ -69,8 +76,15 @@
   }
 
   function onErrorUpload(message) {
+    changeImg.classList.add('hidden');
     errorTemplate.querySelector('.error__title').textContent = message;
     blockForError.appendChild(errorTemplate);
+    document.addEventListener('click', function () {
+      errorTemplate.remove();
+    });
+    document.addEventListener('keydown', closeErrorMessge);
+    closeBtnError.focus();
+    closeBtnError.addEventListener('keydown', closeErrorMessge);
   }
 
   form.addEventListener('submit', function (evt) {
