@@ -16,15 +16,20 @@
   var blockForError = document.querySelector('main');
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
+  var nameForm = document.querySelector('.text__description');
 
   window.ESC_KEYCODE = ESC_KEYCODE;
   window.hiddenClassAdd = hiddenClassAdd();
   window.fieldEffectLevel = fieldEffectLevel;
 
   function onChangeImgEscPress(evt) {
-    if (evt.keyCode === ESC_KEYCODE) {
-      closeChangeImg();
-    }
+    if (nameForm === document.activeElement) {
+      return evt;
+    } else {
+      if (evt.keyCode === ESC_KEYCODE) {
+        closeChangeImg();
+      }
+    } return false;
   }
 
   function closeSuccessMessage(evt) {
