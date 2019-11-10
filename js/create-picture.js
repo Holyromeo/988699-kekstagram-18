@@ -9,8 +9,14 @@
     picturesItem.querySelector('.picture__img').src = picture.url;
     picturesItem.querySelector('.picture__likes').textContent = picture.likes;
     picturesItem.querySelector('.picture__comments').textContent = picture.comments.length;
+
+    picturesItem.addEventListener('click', function () {
+      window.bigPicture.showBigPicture(picture);
+    });
+
     return picturesItem;
   };
+
 
   var createPicturesList = window.debounceJS.debounce(function (pictureData) {
     var picturesList = document.createDocumentFragment();
