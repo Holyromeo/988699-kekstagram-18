@@ -27,13 +27,13 @@
     }
   }
 
-  function closeSuccessMessge(evt) {
+  function closeSuccessMessage(evt) {
     if (evt.keyCode === window.ESC_KEYCODE) {
       successTemplate.remove();
     }
   }
 
-  function closeErrorMessge(evt) {
+  function closeErrorMessage(evt) {
     if (evt.keyCode === window.ESC_KEYCODE) {
       errorTemplate.remove();
     }
@@ -70,9 +70,9 @@
     document.addEventListener('click', function () {
       successTemplate.remove();
     });
-    document.addEventListener('keydown', closeSuccessMessge);
+    document.addEventListener('keydown', closeSuccessMessage);
     closeBtnSuccess.focus();
-    closeBtnSuccess.addEventListener('keydown', closeSuccessMessge);
+    closeBtnSuccess.addEventListener('keydown', closeSuccessMessage);
   }
 
   function onErrorUpload(message) {
@@ -82,9 +82,9 @@
     document.addEventListener('click', function () {
       errorTemplate.remove();
     });
-    document.addEventListener('keydown', closeErrorMessge);
+    document.addEventListener('keydown', closeErrorMessage);
     closeBtnError.focus();
-    closeBtnError.addEventListener('keydown', closeErrorMessge);
+    closeBtnError.addEventListener('keydown', closeErrorMessage);
   }
 
   form.addEventListener('submit', function (evt) {
