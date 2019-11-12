@@ -20,6 +20,39 @@
   var filterDefaultValue = 100;
   var overallLength = document.querySelector('.effect-level__line');
 
+  var spinEffect = {
+    chrome: {
+      cssFilter: 'grayscale',
+      minValue: 0,
+      maxValue: 1,
+      measureUnit: ''
+    },
+    sepia: {
+      cssFilter: 'sepia',
+      minValue: 0,
+      maxValue: 1,
+      measureUnit: ''
+    },
+    marvin: {
+      cssFilter: 'invert',
+      minValue: 0,
+      maxValue: 100,
+      measureUnit: '%'
+    },
+    phobos: {
+      cssFilter: 'blur',
+      minValue: 0,
+      maxValue: 3,
+      measureUnit: 'px'
+    },
+    heat: {
+      cssFilter: 'brightness',
+      minValue: 1,
+      maxValue: 3,
+      measureUnit: ''
+    }
+  };
+
   function hiddenClassAdd() {
     fieldEffectLevel.classList.add('hidden');
   }
@@ -72,11 +105,16 @@
     scaleValue.style.width = filterDefaultValue + '%';
   }
 
+  function getSaturation(effect) {
+    return 'filter: ' + effect.cssFilter + '(' + parseInt(scaleValue.style.width.replace('px'), 10) * (effect.maxValue - effect.minValue) / 453 + effect.measureUnit + ')';
+  }
+
   originalEffect.addEventListener('click', function () {
     hiddenClassAdd();
     replaceEffect('effects__preview--none');
     removeChecked();
     originalEffect.setAttribute('checked', '');
+    resizableImg.removeAttribute('style', '');
   });
 
   chromeEffect.addEventListener('click', function () {
@@ -85,6 +123,7 @@
     removeChecked();
     chromeEffect.setAttribute('checked', '');
     startPositionPin();
+    resizableImg.removeAttribute('style', '');
   });
 
   sepiaEffect.addEventListener('click', function () {
@@ -93,6 +132,7 @@
     removeChecked();
     sepiaEffect.setAttribute('checked', '');
     startPositionPin();
+    resizableImg.removeAttribute('style', '');
   });
 
   marvinEffect.addEventListener('click', function () {
@@ -101,6 +141,7 @@
     removeChecked();
     marvinEffect.setAttribute('checked', '');
     startPositionPin();
+    resizableImg.removeAttribute('style', '');
   });
 
   phobosEffect.addEventListener('click', function () {
@@ -109,6 +150,7 @@
     removeChecked();
     phobosEffect.setAttribute('checked', '');
     startPositionPin();
+    resizableImg.removeAttribute('style', '');
   });
 
   heatEffect.addEventListener('click', function () {
@@ -117,6 +159,7 @@
     removeChecked();
     heatEffect.setAttribute('checked', '');
     startPositionPin();
+    resizableImg.removeAttribute('style', '');
   });
 
   setup.addEventListener('mousedown', function (evt) {
@@ -141,6 +184,22 @@
 
       scaleValue.style.width = changePosition + 'px';
       setup.style.left = changePosition + 'px';
+
+      if (chromeEffect.checked) {
+        resizableImg.style = getSaturation(spinEffect.chrome);
+      }
+      if (sepiaEffect.checked) {
+        resizableImg.style = getSaturation(spinEffect.sepia);
+      }
+      if (marvinEffect.checked) {
+        resizableImg.style = getSaturation(spinEffect.marvin);
+      }
+      if (phobosEffect.checked) {
+        resizableImg.style = getSaturation(spinEffect.phobos);
+      }
+      if (heatEffect.checked) {
+        resizableImg.style = getSaturation(spinEffect.heat);
+      }
     };
 
     function onMouseUp(upEvt) {
