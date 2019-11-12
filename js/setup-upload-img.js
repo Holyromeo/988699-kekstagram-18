@@ -166,6 +166,7 @@
     evt.preventDefault();
 
     var startCoords = evt.clientX;
+
     var min = startCoords - scaleValue.getBoundingClientRect().width;
     var maxLength = parseInt(overallLength.getBoundingClientRect().width, 10);
     var max = min + maxLength;
