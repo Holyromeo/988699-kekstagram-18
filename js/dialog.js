@@ -29,7 +29,8 @@
       if (evt.keyCode === ESC_KEYCODE) {
         closeChangeImg();
       }
-    } return false;
+    }
+    return false;
   }
 
   function closeSuccessMessage(evt) {
