@@ -103,10 +103,12 @@
   function startPositionPin() {
     setup.style.left = filterDefaultValue + '%';
     scaleValue.style.width = filterDefaultValue + '%';
+    resizableImg.removeAttribute('style');
   }
 
   function getSaturation(effect) {
-    return 'filter: ' + effect.cssFilter + '(' + parseInt(scaleValue.style.width.replace('px'), 10) * (effect.maxValue - effect.minValue) / 453 + effect.measureUnit + ')';
+    var pinValue = parseInt(scaleValue.style.width, 10);
+    return 'filter: ' + effect.cssFilter + '(' + pinValue * (effect.maxValue - effect.minValue) / 453 + effect.measureUnit + ')';
   }
 
   originalEffect.addEventListener('click', function () {
@@ -114,7 +116,7 @@
     replaceEffect('effects__preview--none');
     removeChecked();
     originalEffect.setAttribute('checked', '');
-    resizableImg.removeAttribute('style', '');
+    resizableImg.removeAttribute('style');
   });
 
   chromeEffect.addEventListener('click', function () {
@@ -123,7 +125,6 @@
     removeChecked();
     chromeEffect.setAttribute('checked', '');
     startPositionPin();
-    resizableImg.removeAttribute('style', '');
   });
 
   sepiaEffect.addEventListener('click', function () {
@@ -132,7 +133,6 @@
     removeChecked();
     sepiaEffect.setAttribute('checked', '');
     startPositionPin();
-    resizableImg.removeAttribute('style', '');
   });
 
   marvinEffect.addEventListener('click', function () {
@@ -141,7 +141,6 @@
     removeChecked();
     marvinEffect.setAttribute('checked', '');
     startPositionPin();
-    resizableImg.removeAttribute('style', '');
   });
 
   phobosEffect.addEventListener('click', function () {
@@ -150,7 +149,6 @@
     removeChecked();
     phobosEffect.setAttribute('checked', '');
     startPositionPin();
-    resizableImg.removeAttribute('style', '');
   });
 
   heatEffect.addEventListener('click', function () {
@@ -159,7 +157,6 @@
     removeChecked();
     heatEffect.setAttribute('checked', '');
     startPositionPin();
-    resizableImg.removeAttribute('style', '');
   });
 
   setup.addEventListener('mousedown', function (evt) {
