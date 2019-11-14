@@ -10,9 +10,11 @@
 
   function getCommentItem(comment) {
     var createCommentItem = commentItem.cloneNode(true);
+
     createCommentItem.querySelector('.social__picture').src = comment.avatar;
     createCommentItem.querySelector('.social__picture').alt = comment.name;
     createCommentItem.querySelector('.social__text').textContent = comment.message;
+
     return createCommentItem;
   }
 
