@@ -7,7 +7,6 @@
   var resizableImg = document.querySelector('.img-upload__preview');
   var resizeStep = '25%';
   var fieldEffectLevel = document.querySelector('.effect-level');
-  var commentsCount = document.querySelector('.social__comment-count');
 
   var originalEffect = document.getElementById('effect-none');
   var chromeEffect = document.getElementById('effect-chrome');
