@@ -89,7 +89,7 @@
     document.querySelector('.effect-level__value').value = 100;
 
     var matches = FILE_TYPES.some(function (it) {
-     return fileName.endsWith(it);
+      return fileName.endsWith(it);
     });
 
     if (matches) {
@@ -149,7 +149,7 @@
       return false;
     }
     return true;
-  };
+  }
 
   function onSubmitClick() {
     if (nameHashtags.value !== '') {
@@ -173,12 +173,11 @@
         nameHashtags.setCustomValidity(Message.MAX_COUNT);
       }
     }
-
-  };
+  }
 
   imgUploadSubmit.addEventListener('click', onSubmitClick);
-  nameHashtags.addEventListener('keydown', function() {
-     nameHashtags.setCustomValidity('');
+  nameHashtags.addEventListener('keydown', function () {
+    nameHashtags.setCustomValidity('');
   });
 
 
