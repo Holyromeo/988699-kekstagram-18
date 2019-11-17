@@ -21,11 +21,9 @@
   var setup = document.getElementById('upload-file');
   var changeImg = document.querySelector('.img-upload__overlay');
   var closeChangeImgBtn = document.getElementById('upload-cancel');
-  var resizableImg = document.querySelector('.img-upload__preview');
 
-  var prewiev = resizableImg.querySelector('.img-upload__preview img');
+  var prewiev = window.resizableImg.querySelector('.img-upload__preview img');
 
-  var fieldEffectLevel = document.querySelector('.effect-level');
   var form = document.querySelector('.img-upload__form');
 
   var blockSuccess = document.querySelector('main');
@@ -40,7 +38,6 @@
   var imgUploadSubmit = document.querySelector('.img-upload__submit');
 
   window.hiddenClassAdd = hiddenClassAdd();
-  window.fieldEffectLevel = fieldEffectLevel;
 
   function onChangeImgEscPress(evt) {
     if (nameForm === document.activeElement || nameHashtags === document.activeElement) {
@@ -76,7 +73,7 @@
   }
 
   function hiddenClassAdd() {
-    fieldEffectLevel.classList.add('hidden');
+    window.fieldEffectLevel.classList.add('hidden');
   }
 
   setup.addEventListener('change', function () {
@@ -105,7 +102,7 @@
 
   closeChangeImgBtn.addEventListener('click', function () {
     closeChangeImg();
-    resizableImg.removeAttribute('style');
+    window.resizableImg.removeAttribute('style');
   });
 
   function onSuccessUpload() {
@@ -184,6 +181,6 @@
   form.addEventListener('submit', function (evt) {
     window.upload('https://js.dump.academy/kekstagram', new FormData(form), onSuccessUpload, onErrorUpload);
     evt.preventDefault();
-    resizableImg.className = 'img-upload__preview effect__preview--none';
+    window.resizableImg.className = 'img-upload__preview effect__preview--none';
   });
 })();
