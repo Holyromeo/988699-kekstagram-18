@@ -8,7 +8,6 @@
   var resizeStep = '25%';
   var fieldEffectLevel = document.querySelector('.effect-level');
 
-  var originalEffect = document.getElementById('effect-none');
   var chromeEffect = document.getElementById('effect-chrome');
   var sepiaEffect = document.getElementById('effect-sepia');
   var marvinEffect = document.getElementById('effect-marvin');
@@ -16,6 +15,7 @@
   var heatEffect = document.getElementById('effect-heat');
 
   var setup = document.querySelector('.effect-level__pin');
+  var effectLevelValue = document.querySelector('.effect-level__value');
   var scaleValue = document.querySelector('.effect-level__depth');
   var filterDefaultValue = 100;
   var overallLength = document.querySelector('.effect-level__line');
@@ -88,7 +88,7 @@
   });
 
   function removeChecked() {
-    originalEffect.removeAttribute('checked', '');
+    window.originalEffect.removeAttribute('checked', '');
     chromeEffect.removeAttribute('checked', '');
     sepiaEffect.removeAttribute('checked', '');
     marvinEffect.removeAttribute('checked', '');
@@ -103,6 +103,7 @@
   function startPositionPin() {
     setup.style.left = filterDefaultValue + '%';
     scaleValue.style.width = filterDefaultValue + '%';
+    effectLevelValue.value = filterDefaultValue;
     resizableImg.removeAttribute('style');
   }
 
@@ -111,11 +112,13 @@
     return 'filter: ' + effect.cssFilter + '(' + pinValue * (effect.maxValue - effect.minValue) / 453 + effect.measureUnit + ')';
   }
 
-  originalEffect.addEventListener('click', function () {
+  window.originalEffect.addEventListener('click', function () {
     hiddenClassAdd();
     replaceEffect('effects__preview--none');
     removeChecked();
-    originalEffect.setAttribute('checked', '');
+    window.originalEffect.setAttribute('checked', '');
+    scaleValue.style.width = filterDefaultValue + '%';
+    effectLevelValue.value = 100;
     resizableImg.removeAttribute('style');
   });
 
@@ -183,20 +186,29 @@
       scaleValue.style.width = changePosition + 'px';
       setup.style.left = changePosition + 'px';
 
+      function getEffectLevelValue() {
+        return parseInt((changePosition / 453) * 100, 10);
+      }
+
       if (chromeEffect.checked) {
         resizableImg.style = getSaturation(spinEffect.chrome);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (sepiaEffect.checked) {
         resizableImg.style = getSaturation(spinEffect.sepia);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (marvinEffect.checked) {
         resizableImg.style = getSaturation(spinEffect.marvin);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (phobosEffect.checked) {
         resizableImg.style = getSaturation(spinEffect.phobos);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (heatEffect.checked) {
         resizableImg.style = getSaturation(spinEffect.heat);
+        effectLevelValue.value = getEffectLevelValue();
       }
     };
 
@@ -210,4 +222,5 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
 })();
