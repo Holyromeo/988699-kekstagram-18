@@ -42,10 +42,9 @@
   function onChangeImgEscPress(evt) {
     if (nameForm === document.activeElement || nameHashtags === document.activeElement) {
       return evt;
-    } else {
-      if (evt.keyCode === window.ESC_KEYCODE) {
-        closeChangeImg();
-      }
+    }
+    if (evt.keyCode === window.ESC_KEYCODE) {
+      closeChangeImg();
     }
     return false;
   }
