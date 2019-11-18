@@ -4,18 +4,16 @@
   var smallerSizeImgBtn = document.querySelector('.scale__control--smaller');
   var biggerSizeImgBtn = document.querySelector('.scale__control--bigger');
   var valueSizeImg = document.querySelector('.scale__control--value');
-  var resizableImg = document.querySelector('.img-upload__preview');
   var resizeStep = '25%';
-  var fieldEffectLevel = document.querySelector('.effect-level');
 
-  var originalEffect = document.getElementById('effect-none');
-  var chromeEffect = document.getElementById('effect-chrome');
-  var sepiaEffect = document.getElementById('effect-sepia');
-  var marvinEffect = document.getElementById('effect-marvin');
-  var phobosEffect = document.getElementById('effect-phobos');
-  var heatEffect = document.getElementById('effect-heat');
+  var chromeEffect = document.querySelector('#effect-chrome');
+  var sepiaEffect = document.querySelector('#effect-sepia');
+  var marvinEffect = document.querySelector('#effect-marvin');
+  var phobosEffect = document.querySelector('#effect-phobos');
+  var heatEffect = document.querySelector('#effect-heat');
 
   var setup = document.querySelector('.effect-level__pin');
+  var effectLevelValue = document.querySelector('.effect-level__value');
   var scaleValue = document.querySelector('.effect-level__depth');
   var filterDefaultValue = 100;
   var overallLength = document.querySelector('.effect-level__line');
@@ -54,11 +52,11 @@
   };
 
   function hiddenClassAdd() {
-    fieldEffectLevel.classList.add('hidden');
+    window.fieldEffectLevel.classList.add('hidden');
   }
 
   function hiddenClassRemove() {
-    fieldEffectLevel.classList.remove('hidden');
+    window.fieldEffectLevel.classList.remove('hidden');
   }
 
   function inRange(someValue, a, b) {
@@ -76,19 +74,19 @@
   smallerSizeImgBtn.addEventListener('click', function () {
     if (inRange(parseInt(valueSizeImg.value, 10), 50, 100)) {
       valueSizeImg.value = parseInt(downsizingImg(valueSizeImg.value), 10) + '%';
-      resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
+      window.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
     }
   });
 
   biggerSizeImgBtn.addEventListener('click', function () {
     if (inRange(parseInt(valueSizeImg.value, 10), 25, 75)) {
       valueSizeImg.value = parseInt(upsizingImg(valueSizeImg.value), 10) + '%';
-      resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
+      window.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
     }
   });
 
   function removeChecked() {
-    originalEffect.removeAttribute('checked', '');
+    window.originalEffect.removeAttribute('checked', '');
     chromeEffect.removeAttribute('checked', '');
     sepiaEffect.removeAttribute('checked', '');
     marvinEffect.removeAttribute('checked', '');
@@ -97,13 +95,14 @@
   }
 
   function replaceEffect(effect) {
-    resizableImg.className = 'img-upload__preview ' + effect;
+    window.resizableImg.className = 'img-upload__preview ' + effect;
   }
 
   function startPositionPin() {
     setup.style.left = filterDefaultValue + '%';
     scaleValue.style.width = filterDefaultValue + '%';
-    resizableImg.removeAttribute('style');
+    effectLevelValue.value = filterDefaultValue;
+    window.resizableImg.removeAttribute('style');
   }
 
   function getSaturation(effect) {
@@ -111,12 +110,14 @@
     return 'filter: ' + effect.cssFilter + '(' + pinValue * (effect.maxValue - effect.minValue) / 453 + effect.measureUnit + ')';
   }
 
-  originalEffect.addEventListener('click', function () {
+  window.originalEffect.addEventListener('click', function () {
     hiddenClassAdd();
     replaceEffect('effects__preview--none');
     removeChecked();
-    originalEffect.setAttribute('checked', '');
-    resizableImg.removeAttribute('style');
+    window.originalEffect.setAttribute('checked', '');
+    scaleValue.style.width = filterDefaultValue + '%';
+    effectLevelValue.value = 100;
+    window.resizableImg.removeAttribute('style');
   });
 
   chromeEffect.addEventListener('click', function () {
@@ -183,20 +184,29 @@
       scaleValue.style.width = changePosition + 'px';
       setup.style.left = changePosition + 'px';
 
+      function getEffectLevelValue() {
+        return parseInt((changePosition / 453) * 100, 10);
+      }
+
       if (chromeEffect.checked) {
-        resizableImg.style = getSaturation(spinEffect.chrome);
+        window.resizableImg.style = getSaturation(spinEffect.chrome);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (sepiaEffect.checked) {
-        resizableImg.style = getSaturation(spinEffect.sepia);
+        window.resizableImg.style = getSaturation(spinEffect.sepia);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (marvinEffect.checked) {
-        resizableImg.style = getSaturation(spinEffect.marvin);
+        window.resizableImg.style = getSaturation(spinEffect.marvin);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (phobosEffect.checked) {
-        resizableImg.style = getSaturation(spinEffect.phobos);
+        window.resizableImg.style = getSaturation(spinEffect.phobos);
+        effectLevelValue.value = getEffectLevelValue();
       }
       if (heatEffect.checked) {
-        resizableImg.style = getSaturation(spinEffect.heat);
+        window.resizableImg.style = getSaturation(spinEffect.heat);
+        effectLevelValue.value = getEffectLevelValue();
       }
     };
 
@@ -210,4 +220,5 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   });
+
 })();

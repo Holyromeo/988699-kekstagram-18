@@ -53,6 +53,10 @@
       buttonLoadComment.classList.remove('visually-hidden');
     }
 
+    if (picture.comments.length < 5) {
+      commentsCountItem.textContent = picture.comments.length + ' из ';
+    }
+
     function addComments() {
       commentsCounter += 5;
       createSocialCommentsList(loadComments(commentsCounter));

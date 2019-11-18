@@ -1,12 +1,29 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+  var Message = {
+    START_POSITION: 'Хэш-тег начинается с символа #',
+    MIN_LENGTH: 'Хеш-тег не может состоять только из одной решётки',
+    SPACE: 'Хэш-теги разделяются пробелами',
+    NO_REPEAT: 'Один и тот же хэш-тег не может быть использован дважды',
+    MAX_COUNT: 'Нельзя указать больше 5 хэш-тегов',
+    MAX_LENGTH: 'максимальная длина одного хэш-тега 20 символов, включая решётку',
+  };
+
+  var startPosition = 0;
+  var minLenght = 2;
+  var maxLenght = 20;
+  var space = 1;
+  var maxCount = 5;
+
   var setup = document.getElementById('upload-file');
   var changeImg = document.querySelector('.img-upload__overlay');
   var closeChangeImgBtn = document.getElementById('upload-cancel');
-  var resizableImg = document.querySelector('.img-upload__preview');
-  var fieldEffectLevel = document.querySelector('.effect-level');
+
+  var prewiev = window.resizableImg.querySelector('.img-upload__preview img');
+
   var form = document.querySelector('.img-upload__form');
 
   var blockSuccess = document.querySelector('main');
@@ -17,18 +34,17 @@
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
   var nameForm = document.querySelector('.text__description');
+  var nameHashtags = document.querySelector('.text__hashtags');
+  var imgUploadSubmit = document.querySelector('.img-upload__submit');
 
-  window.ESC_KEYCODE = ESC_KEYCODE;
   window.hiddenClassAdd = hiddenClassAdd();
-  window.fieldEffectLevel = fieldEffectLevel;
 
   function onChangeImgEscPress(evt) {
-    if (nameForm === document.activeElement) {
+    if (nameForm === document.activeElement || nameHashtags === document.activeElement) {
       return evt;
-    } else {
-      if (evt.keyCode === ESC_KEYCODE) {
-        closeChangeImg();
-      }
+    }
+    if (evt.keyCode === window.ESC_KEYCODE) {
+      closeChangeImg();
     }
     return false;
   }
@@ -56,18 +72,36 @@
   }
 
   function hiddenClassAdd() {
-    fieldEffectLevel.classList.add('hidden');
+    window.fieldEffectLevel.classList.add('hidden');
   }
 
   setup.addEventListener('change', function () {
+    var file = setup.files[0];
+    var fileName = file.name.toLowerCase();
+
     openChangeImg();
     hiddenClassAdd();
     document.querySelector('.scale__control--value').value = '100%';
+    document.querySelector('.effect-level__value').value = 100;
+
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+
+    if (matches) {
+      var reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        prewiev.src = reader.result;
+      });
+
+      reader.readAsDataURL(file);
+    }
   });
 
   closeChangeImgBtn.addEventListener('click', function () {
     closeChangeImg();
-    resizableImg.removeAttribute('style');
+    window.resizableImg.removeAttribute('style');
   });
 
   function onSuccessUpload() {
@@ -93,8 +127,59 @@
     closeBtnError.addEventListener('keydown', closeErrorMessage);
   }
 
+  function validateHashtag(hashtag) {
+    if (hashtag[startPosition] !== '#') {
+      nameHashtags.setCustomValidity(Message.START_POSITION);
+      return false;
+    }
+    if (hashtag.length < minLenght) {
+      nameHashtags.setCustomValidity(Message.MIN_LENGTH);
+      return false;
+    }
+    if (hashtag.length > maxLenght) {
+      nameHashtags.setCustomValidity(Message.MAX_LENGTH);
+      return false;
+    }
+    if (hashtag.indexOf('#', space) > 0) {
+      nameHashtags.setCustomValidity(Message.SPACE);
+      return false;
+    }
+    return true;
+  }
+
+  function onSubmitClick() {
+    if (nameHashtags.value !== '') {
+      var hashtags = nameHashtags.value.toLowerCase().split(' ');
+
+      for (var i = 0; i < hashtags.length; i++) {
+        var isValid = validateHashtag(hashtags[i]);
+
+        if (!isValid) {
+          break;
+        }
+        var nextHashtagSymbol = i + 1;
+
+        if (hashtags.indexOf(hashtags[i], nextHashtagSymbol) > 0) {
+          nameHashtags.setCustomValidity(Message.NO_REPEAT);
+          break;
+        }
+      }
+
+      if (hashtags.length > maxCount) {
+        nameHashtags.setCustomValidity(Message.MAX_COUNT);
+      }
+    }
+  }
+
+  imgUploadSubmit.addEventListener('click', onSubmitClick);
+  nameHashtags.addEventListener('keydown', function () {
+    nameHashtags.setCustomValidity('');
+  });
+
+
   form.addEventListener('submit', function (evt) {
     window.upload('https://js.dump.academy/kekstagram', new FormData(form), onSuccessUpload, onErrorUpload);
     evt.preventDefault();
+    window.resizableImg.className = 'img-upload__preview effect__preview--none';
   });
 })();
