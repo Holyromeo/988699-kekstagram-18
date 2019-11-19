@@ -89,6 +89,9 @@
   function addChangeEffects() {
     var file = setup.files[0];
     var fileName = file.name.toLowerCase();
+    if (!setup.files.length) {
+      return;
+    }
 
     openChangeImg();
     hiddenClassAdd();
@@ -195,5 +198,6 @@
     window.upload('https://js.dump.academy/kekstagram', new FormData(form), onSuccessUpload, onErrorUpload);
     evt.preventDefault();
     closeBtnError.removeEventListener('keydown', closeErrorMessage);
+    resetAllEffects();
   });
 })();
