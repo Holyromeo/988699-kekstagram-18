@@ -89,6 +89,8 @@
     window.util.fieldEffectLevel.classList.add('hidden');
   }
 
+  setup.addEventListener('change', addChangeEffects);
+
   function addChangeEffects() {
     var file = setup.files[0];
     var fileName = file.name.toLowerCase();
@@ -115,8 +117,6 @@
       reader.readAsDataURL(file);
     }
   }
-
-  setup.addEventListener('change', addChangeEffects);
 
   closeChangeImgBtn.addEventListener('click', function () {
     closeChangeImg();
