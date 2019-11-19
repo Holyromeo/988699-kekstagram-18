@@ -22,7 +22,7 @@
   var changeImg = document.querySelector('.img-upload__overlay');
   var closeChangeImgBtn = document.getElementById('upload-cancel');
 
-  var prewiev = window.resizableImg.querySelector('.img-upload__preview img');
+  var prewiev = window.util.resizableImg.querySelector('.img-upload__preview img');
 
   var form = document.querySelector('.img-upload__form');
 
@@ -43,20 +43,31 @@
     if (nameForm === document.activeElement || nameHashtags === document.activeElement) {
       return evt;
     }
-    if (evt.keyCode === window.ESC_KEYCODE) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
       closeChangeImg();
     }
     return false;
   }
 
+  function resetAllEffects() {
+    window.util.resizableImg.className = 'img-upload__preview effect__preview--none';
+    prewiev.src = 'img/upload-default-image.jpg';
+    document.querySelector('.text__hashtags').value = '';
+    nameForm.value = '';
+    nameHashtags.removeEventListener('keydown', function () {
+      nameHashtags.setCustomValidity('');
+    });
+  }
+
   function closeSuccessMessage(evt) {
-    if (evt.keyCode === window.ESC_KEYCODE) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
       successTemplate.remove();
+      resetAllEffects();
     }
   }
 
   function closeErrorMessage(evt) {
-    if (evt.keyCode === window.ESC_KEYCODE) {
+    if (evt.keyCode === window.util.ESC_KEYCODE) {
       errorTemplate.remove();
     }
   }
@@ -72,10 +83,10 @@
   }
 
   function hiddenClassAdd() {
-    window.fieldEffectLevel.classList.add('hidden');
+    window.util.fieldEffectLevel.classList.add('hidden');
   }
 
-  setup.addEventListener('change', function () {
+  function addChangeEffects() {
     var file = setup.files[0];
     var fileName = file.name.toLowerCase();
 
@@ -97,11 +108,13 @@
 
       reader.readAsDataURL(file);
     }
-  });
+  }
+
+  setup.addEventListener('change', addChangeEffects);
 
   closeChangeImgBtn.addEventListener('click', function () {
     closeChangeImg();
-    window.resizableImg.removeAttribute('style');
+    window.util.resizableImg.removeAttribute('style');
   });
 
   function onSuccessUpload() {
@@ -109,6 +122,7 @@
     blockSuccess.appendChild(successTemplate);
     document.addEventListener('click', function () {
       successTemplate.remove();
+      resetAllEffects();
     });
     document.addEventListener('keydown', closeSuccessMessage);
     closeBtnSuccess.focus();
@@ -127,20 +141,20 @@
     closeBtnError.addEventListener('keydown', closeErrorMessage);
   }
 
-  function validateHashtag(hashtag) {
-    if (hashtag[startPosition] !== '#') {
+  function validateHashtag(hashtags) {
+    if (hashtags[startPosition] !== '#') {
       nameHashtags.setCustomValidity(Message.START_POSITION);
       return false;
     }
-    if (hashtag.length < minLenght) {
+    if (hashtags.length < minLenght) {
       nameHashtags.setCustomValidity(Message.MIN_LENGTH);
       return false;
     }
-    if (hashtag.length > maxLenght) {
+    if (hashtags.length > maxLenght) {
       nameHashtags.setCustomValidity(Message.MAX_LENGTH);
       return false;
     }
-    if (hashtag.indexOf('#', space) > 0) {
+    if (hashtags.indexOf('#', space) > 0) {
       nameHashtags.setCustomValidity(Message.SPACE);
       return false;
     }
@@ -180,6 +194,6 @@
   form.addEventListener('submit', function (evt) {
     window.upload('https://js.dump.academy/kekstagram', new FormData(form), onSuccessUpload, onErrorUpload);
     evt.preventDefault();
-    window.resizableImg.className = 'img-upload__preview effect__preview--none';
+    closeBtnError.removeEventListener('keydown', closeErrorMessage);
   });
 })();

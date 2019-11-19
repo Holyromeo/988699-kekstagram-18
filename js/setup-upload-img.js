@@ -4,7 +4,7 @@
   var smallerSizeImgBtn = document.querySelector('.scale__control--smaller');
   var biggerSizeImgBtn = document.querySelector('.scale__control--bigger');
   var valueSizeImg = document.querySelector('.scale__control--value');
-  var resizeStep = '25%';
+  var RESIZE_STEP = '25%';
 
   var chromeEffect = document.querySelector('#effect-chrome');
   var sepiaEffect = document.querySelector('#effect-sepia');
@@ -18,7 +18,7 @@
   var filterDefaultValue = 100;
   var overallLength = document.querySelector('.effect-level__line');
 
-  var spinEffect = {
+  var SpinEffect = {
     chrome: {
       cssFilter: 'grayscale',
       minValue: 0,
@@ -52,11 +52,11 @@
   };
 
   function hiddenClassAdd() {
-    window.fieldEffectLevel.classList.add('hidden');
+    window.util.fieldEffectLevel.classList.add('hidden');
   }
 
   function hiddenClassRemove() {
-    window.fieldEffectLevel.classList.remove('hidden');
+    window.util.fieldEffectLevel.classList.remove('hidden');
   }
 
   function inRange(someValue, a, b) {
@@ -64,29 +64,29 @@
   }
 
   function downsizingImg(someValue) {
-    return parseInt(someValue, 10) - parseInt(resizeStep, 10);
+    return parseInt(someValue, 10) - parseInt(RESIZE_STEP, 10);
   }
 
   function upsizingImg(someValue) {
-    return parseInt(someValue, 10) + parseInt(resizeStep, 10);
+    return parseInt(someValue, 10) + parseInt(RESIZE_STEP, 10);
   }
 
   smallerSizeImgBtn.addEventListener('click', function () {
     if (inRange(parseInt(valueSizeImg.value, 10), 50, 100)) {
       valueSizeImg.value = parseInt(downsizingImg(valueSizeImg.value), 10) + '%';
-      window.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
+      window.util.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
     }
   });
 
   biggerSizeImgBtn.addEventListener('click', function () {
     if (inRange(parseInt(valueSizeImg.value, 10), 25, 75)) {
       valueSizeImg.value = parseInt(upsizingImg(valueSizeImg.value), 10) + '%';
-      window.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
+      window.util.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
     }
   });
 
   function removeChecked() {
-    window.originalEffect.removeAttribute('checked', '');
+    window.util.originalEffect.removeAttribute('checked', '');
     chromeEffect.removeAttribute('checked', '');
     sepiaEffect.removeAttribute('checked', '');
     marvinEffect.removeAttribute('checked', '');
@@ -95,29 +95,29 @@
   }
 
   function replaceEffect(effect) {
-    window.resizableImg.className = 'img-upload__preview ' + effect;
+    window.util.resizableImg.className = 'img-upload__preview ' + effect;
   }
 
   function startPositionPin() {
     setup.style.left = filterDefaultValue + '%';
     scaleValue.style.width = filterDefaultValue + '%';
     effectLevelValue.value = filterDefaultValue;
-    window.resizableImg.removeAttribute('style');
+    window.util.resizableImg.removeAttribute('style');
   }
 
   function getSaturation(effect) {
     var pinValue = parseInt(scaleValue.style.width, 10);
-    return 'filter: ' + effect.cssFilter + '(' + pinValue * (effect.maxValue - effect.minValue) / 453 + effect.measureUnit + ')';
+    return 'filter: ' + effect.cssFilter + '(' + (pinValue * (effect.maxValue - effect.minValue) / 453 + effect.minValue) + effect.measureUnit + ')';
   }
 
-  window.originalEffect.addEventListener('click', function () {
+  window.util.originalEffect.addEventListener('click', function () {
     hiddenClassAdd();
     replaceEffect('effects__preview--none');
     removeChecked();
-    window.originalEffect.setAttribute('checked', '');
+    window.util.originalEffect.setAttribute('checked', '');
     scaleValue.style.width = filterDefaultValue + '%';
     effectLevelValue.value = 100;
-    window.resizableImg.removeAttribute('style');
+    window.util.resizableImg.removeAttribute('style');
   });
 
   chromeEffect.addEventListener('click', function () {
@@ -140,7 +140,7 @@
     hiddenClassRemove();
     replaceEffect('effects__preview--marvin');
     removeChecked();
-    marvinEffect.setAttribute('checked', '');
+    parvinEffect.setAttribute('checked', '');
     startPositionPin();
   });
 
@@ -189,23 +189,23 @@
       }
 
       if (chromeEffect.checked) {
-        window.resizableImg.style = getSaturation(spinEffect.chrome);
+        window.util.resizableImg.style = getSaturation(SpinEffect.chrome);
         effectLevelValue.value = getEffectLevelValue();
       }
       if (sepiaEffect.checked) {
-        window.resizableImg.style = getSaturation(spinEffect.sepia);
+        window.util.resizableImg.style = getSaturation(SpinEffect.sepia);
         effectLevelValue.value = getEffectLevelValue();
       }
       if (marvinEffect.checked) {
-        window.resizableImg.style = getSaturation(spinEffect.marvin);
+        window.util.resizableImg.style = getSaturation(SpinEffect.marvin);
         effectLevelValue.value = getEffectLevelValue();
       }
       if (phobosEffect.checked) {
-        window.resizableImg.style = getSaturation(spinEffect.phobos);
+        window.util.resizableImg.style = getSaturation(SpinEffect.phobos);
         effectLevelValue.value = getEffectLevelValue();
       }
       if (heatEffect.checked) {
-        window.resizableImg.style = getSaturation(spinEffect.heat);
+        window.util.resizableImg.style = getSaturation(SpinEffect.heat);
         effectLevelValue.value = getEffectLevelValue();
       }
     };

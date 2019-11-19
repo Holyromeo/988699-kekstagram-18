@@ -11,12 +11,12 @@
     fieldEffectLevel.classList.add('hidden');
   };
 
-  window.ESC_KEYCODE = ESC_KEYCODE;
-  window.ENTER_KEYCODE = ENTER_KEYCODE;
-  window.fieldEffectLevel = fieldEffectLevel;
-  window.originalEffect = originalEffect;
-  window.resizableImg = resizableImg;
   window.util = {
-    hiddenClassAdd: hiddenClassAdd
+    hiddenClassAdd: hiddenClassAdd,
+    ESC_KEYCODE: ESC_KEYCODE,
+    ENTER_KEYCODE: ENTER_KEYCODE,
+    fieldEffectLevel: fieldEffectLevel,
+    originalEffect: originalEffect,
+    resizableImg: resizableImg
   };
 })();
