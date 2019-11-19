@@ -85,7 +85,7 @@
     });
   }
 
-  window.bigPicture = {
-    ShowBigPicture: showBigPicture
+  window.BigPicture = {
+    showBigPicture: showBigPicture
   };
 })();

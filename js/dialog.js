@@ -51,6 +51,9 @@
 
   function resetAllEffects() {
     window.util.resizableImg.className = 'img-upload__preview effect__preview--none';
+    window.util.resizableImg.style.filter = '';
+    document.querySelector('.effect-level__pin').classList.add('hidden');
+    document.querySelector('.effect-level__depth').classList.add('hidden');;
     prewiev.src = 'img/upload-default-image.jpg';
     document.querySelector('.text__hashtags').value = '';
     nameForm.value = '';
