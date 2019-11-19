@@ -140,7 +140,7 @@
     hiddenClassRemove();
     replaceEffect('effects__preview--marvin');
     removeChecked();
-    parvinEffect.setAttribute('checked', '');
+    marvinEffect.setAttribute('checked', '');
     startPositionPin();
   });
 
