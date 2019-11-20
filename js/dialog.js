@@ -50,7 +50,13 @@
   }
 
   function resetAllEffects() {
-    document.querySelector('#upload-file').value = '';
+    window.util.resizableImg.removeAttribute('style');
+    window.setupUploadImg.removeChecked;
+    document.querySelector('#effect-heat').removeEventListener('click', window.setupUploadImg.getHeatEffect);
+    document.querySelector('#effect-heat').removeAttribute('checked', '');
+    document.removeEventListener('click', removeSuccessTemplate);
+    document.removeEventListener('keydown', closeSuccessMessage);
+    setup.value = '';
     window.util.resizableImg.className = 'img-upload__preview effect__preview--none';
     window.util.resizableImg.style.filter = '';
     document.querySelector('.img-upload__effect-level').className = 'img-upload__effect-level effect-level hidden';
@@ -65,7 +71,6 @@
   function closeSuccessMessage(evt) {
     if (evt.keyCode === window.util.ESC_KEYCODE) {
       successTemplate.remove();
-      resetAllEffects();
     }
   }
 
@@ -89,7 +94,9 @@
     window.util.fieldEffectLevel.classList.add('hidden');
   }
 
-  setup.addEventListener('change', addChangeEffects);
+  function removeSuccessTemplate() {
+    successTemplate.remove();
+  }
 
   function addChangeEffects() {
     var file = setup.files[0];
@@ -97,6 +104,9 @@
     if (!setup.files.length) {
       return;
     }
+
+    window.util.originalEffect.setAttribute('checked', '');
+    window.util.originalEffect.focus();
 
     openChangeImg();
     hiddenClassAdd();
@@ -118,6 +128,8 @@
     }
   }
 
+  setup.addEventListener('change', addChangeEffects);
+
   closeChangeImgBtn.addEventListener('click', function () {
     closeChangeImg();
     window.util.resizableImg.removeAttribute('style');
@@ -125,11 +137,9 @@
 
   function onSuccessUpload() {
     changeImg.classList.add('hidden');
+    resetAllEffects();
     blockSuccess.appendChild(successTemplate);
-    document.addEventListener('click', function () {
-      successTemplate.remove();
-      resetAllEffects();
-    });
+    document.addEventListener('click', removeSuccessTemplate);
     document.addEventListener('keydown', closeSuccessMessage);
     closeBtnSuccess.focus();
     closeBtnSuccess.addEventListener('keydown', closeSuccessMessage);
@@ -192,6 +202,7 @@
   }
 
   imgUploadSubmit.addEventListener('click', onSubmitClick);
+
   nameHashtags.addEventListener('keydown', function () {
     nameHashtags.setCustomValidity('');
   });
@@ -200,7 +211,5 @@
   form.addEventListener('submit', function (evt) {
     window.upload('https://js.dump.academy/kekstagram', new FormData(form), onSuccessUpload, onErrorUpload);
     evt.preventDefault();
-    closeBtnError.removeEventListener('keydown', closeErrorMessage);
-    resetAllEffects();
   });
 })();
