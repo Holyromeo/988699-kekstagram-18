@@ -86,6 +86,6 @@
   }
 
   window.BigPicture = {
-    showBigPicture: showBigPicture
+    bigPicture: showBigPicture
   };
 })();

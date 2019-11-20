@@ -11,17 +11,18 @@
     picturesItem.querySelector('.picture__comments').textContent = picture.comments.length;
 
     picturesItem.addEventListener('click', function () {
-      window.BigPicture.showBigPicture(picture);
+      window.BigPicture.bigPicture(picture);
     });
 
     return picturesItem;
   };
 
-
   var createPicturesList = window.debounceJS.debounce(function (pictureData) {
     var picturesListEl = document.createDocumentFragment();
-    for (var i = 0; i < pictureData.length; i++) {
-      picturesListEl.appendChild(createPicturesItem(pictureData[i]));
+    if (pictureData) {
+      for (var i = 0; i < pictureData.length; i++) {
+        picturesListEl.appendChild(createPicturesItem(pictureData[i]));
+      }
     }
     picturesList.appendChild(picturesListEl);
   });

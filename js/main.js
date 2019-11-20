@@ -33,12 +33,15 @@
 
   window.load('https://js.dump.academy/kekstagram/data', onSuccess, onError);
 
-  function getRandomShuffleArray(pictureData) {
-    var copyData = pictureData.slice();
-    return copyData.sort(function () {
-      return Math.random() - 0.5;
-    });
-  }
+  var getRandomShuffleArray = function (pictureData) {
+    if (pictureData) {
+      var copyData = pictureData.slice();
+      return copyData.sort(function () {
+        return Math.random() - 0.5;
+      });
+    }
+    return [];
+  };
 
   var clearPictures = window.debounceJS.debounce(function () {
     var allPictures = document.querySelectorAll('.picture');
@@ -68,9 +71,10 @@
   discussedFilter.addEventListener('click', function () {
     removeActiveClassButton(popularFilter, randomFilter);
     addActiveClassButton(discussedFilter);
-    removeAndAddPhotos(window.pictureData.slice().sort(function (a, b) {
-      return b.comments.length - a.comments.length;
-    })
-    );
+    if (window.pictureData) {
+      removeAndAddPhotos(window.pictureData.slice().sort(function (a, b) {
+        return b.comments.length - a.comments.length;
+      }));
+    }
   });
 })();
