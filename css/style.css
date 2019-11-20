@@ -690,7 +690,7 @@ main {
   margin-right: 0;
 }
 
-.effects__radio:checked + .effects__label .effects__preview {
+.active-effect__preview {
   border: 5px solid #ffe753;
 }
 

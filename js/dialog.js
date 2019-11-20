@@ -64,6 +64,7 @@
     prewiev.src = 'img/upload-default-image.jpg';
     document.querySelector('.text__hashtags').value = '';
     nameForm.value = '';
+    window.setupUploadImg.removeFocusBorder();
     nameHashtags.removeEventListener('keydown', function () {
       nameHashtags.setCustomValidity('');
     });
@@ -106,6 +107,8 @@
     if (!setup.files.length) {
       return;
     }
+
+    document.querySelector('span.effects__preview--none').classList.add('active-effect__preview');
 
     document.querySelector('.scale__control--smaller').addEventListener('click', window.setupUploadImg.decreaseSizeImg);
     document.querySelector('.scale__control--bigger').addEventListener('click', window.setupUploadImg.increaseSizeImg);

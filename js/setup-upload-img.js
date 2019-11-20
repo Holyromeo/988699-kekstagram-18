@@ -1,6 +1,13 @@
 'use strict';
 
 (function () {
+  var originalEffectSpan = document.querySelector('span.effects__preview--none');
+  var chromeEffectSpan = document.querySelector('span.effects__preview--chrome');
+  var sepiaEffectSpan = document.querySelector('span.effects__preview--sepia');
+  var marvinEffectSpan = document.querySelector('span.effects__preview--marvin');
+  var phobosEffectSpan = document.querySelector('span.effects__preview--phobos');
+  var heatEffectSpan = document.querySelector('span.effects__preview--heat');
+
   var smallerSizeImgBtn = document.querySelector('.scale__control--smaller');
   var biggerSizeImgBtn = document.querySelector('.scale__control--bigger');
   var valueSizeImg = document.querySelector('.scale__control--value');
@@ -89,6 +96,15 @@
 
   biggerSizeImgBtn.addEventListener('click', increaseSizeImg);
 
+  function removeFocusBorder() {
+    originalEffectSpan.classList.remove('active-effect__preview');
+    chromeEffectSpan.classList.remove('active-effect__preview');
+    sepiaEffectSpan.classList.remove('active-effect__preview');
+    marvinEffectSpan.classList.remove('active-effect__preview');
+    phobosEffectSpan.classList.remove('active-effect__preview');
+    heatEffectSpan.classList.remove('active-effect__preview');
+  }
+
   function removeChecked() {
     window.util.originalEffect.removeAttribute('checked', '');
     chromeEffect.removeAttribute('checked', '');
@@ -96,6 +112,7 @@
     marvinEffect.removeAttribute('checked', '');
     phobosEffect.removeAttribute('checked', '');
     heatEffect.removeAttribute('checked', '');
+    removeFocusBorder();
   }
 
   function replaceEffect(effect) {
@@ -118,6 +135,7 @@
     hiddenClassAdd();
     replaceEffect('effects__preview--none');
     removeChecked();
+    originalEffectSpan.classList.add('active-effect__preview');
     window.util.originalEffect.setAttribute('checked', '');
     scaleValue.style.width = filterDefaultValue + '%';
     effectLevelValue.value = 100;
@@ -130,6 +148,7 @@
     replaceEffect('effects__preview--chrome');
     removeChecked();
     chromeEffect.setAttribute('checked', '');
+    chromeEffectSpan.classList.add('active-effect__preview');
     startPositionPin();
     document.querySelector('.scale__control--value').value = '100%';
   }
@@ -138,6 +157,7 @@
     hiddenClassRemove();
     replaceEffect('effects__preview--sepia');
     removeChecked();
+    sepiaEffectSpan.classList.add('active-effect__preview');
     sepiaEffect.setAttribute('checked', '');
     startPositionPin();
     document.querySelector('.scale__control--value').value = '100%';
@@ -147,6 +167,7 @@
     hiddenClassRemove();
     replaceEffect('effects__preview--marvin');
     removeChecked();
+    marvinEffectSpan.classList.add('active-effect__preview');
     marvinEffect.setAttribute('checked', '');
     startPositionPin();
     document.querySelector('.scale__control--value').value = '100%';
@@ -156,6 +177,7 @@
     hiddenClassRemove();
     replaceEffect('effects__preview--phobos');
     removeChecked();
+    phobosEffectSpan.classList.add('active-effect__preview');
     phobosEffect.setAttribute('checked', '');
     startPositionPin();
     document.querySelector('.scale__control--value').value = '100%';
@@ -165,6 +187,7 @@
     hiddenClassRemove();
     replaceEffect('effects__preview--heat');
     removeChecked();
+    heatEffectSpan.classList.add('active-effect__preview');
     heatEffect.setAttribute('checked', '');
     startPositionPin();
     document.querySelector('.scale__control--value').value = '100%';
@@ -248,6 +271,7 @@
     getSepiaEffect: getSepiaEffect,
     getMarvinEffect: getMarvinEffect,
     getPhobosEffect: getPhobosEffect,
-    getHeatEffect: getHeatEffect
+    getHeatEffect: getHeatEffect,
+    removeFocusBorder: removeFocusBorder
   };
 })();
