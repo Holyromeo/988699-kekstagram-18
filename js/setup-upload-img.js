@@ -71,19 +71,23 @@
     return parseInt(someValue, 10) + parseInt(RESIZE_STEP, 10);
   }
 
-  smallerSizeImgBtn.addEventListener('click', function () {
+  function decreaseSizeImg() {
     if (inRange(parseInt(valueSizeImg.value, 10), 50, 100)) {
       valueSizeImg.value = parseInt(downsizingImg(valueSizeImg.value), 10) + '%';
       window.util.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
     }
-  });
+  }
 
-  biggerSizeImgBtn.addEventListener('click', function () {
+  function increaseSizeImg() {
     if (inRange(parseInt(valueSizeImg.value, 10), 25, 75)) {
       valueSizeImg.value = parseInt(upsizingImg(valueSizeImg.value), 10) + '%';
       window.util.resizableImg.style.transform = 'scale(' + parseInt(valueSizeImg.value, 10) / 100 + ')';
     }
-  });
+  }
+
+  smallerSizeImgBtn.addEventListener('click', decreaseSizeImg);
+
+  biggerSizeImgBtn.addEventListener('click', increaseSizeImg);
 
   function removeChecked() {
     window.util.originalEffect.removeAttribute('checked', '');
@@ -118,6 +122,7 @@
     scaleValue.style.width = filterDefaultValue + '%';
     effectLevelValue.value = 100;
     window.util.resizableImg.removeAttribute('style');
+    document.querySelector('.scale__control--value').value = '100%';
   }
 
   function getChromeEffect() {
@@ -126,6 +131,7 @@
     removeChecked();
     chromeEffect.setAttribute('checked', '');
     startPositionPin();
+    document.querySelector('.scale__control--value').value = '100%';
   }
 
   function getSepiaEffect() {
@@ -134,6 +140,7 @@
     removeChecked();
     sepiaEffect.setAttribute('checked', '');
     startPositionPin();
+    document.querySelector('.scale__control--value').value = '100%';
   }
 
   function getMarvinEffect() {
@@ -142,6 +149,7 @@
     removeChecked();
     marvinEffect.setAttribute('checked', '');
     startPositionPin();
+    document.querySelector('.scale__control--value').value = '100%';
   }
 
   function getPhobosEffect() {
@@ -150,6 +158,7 @@
     removeChecked();
     phobosEffect.setAttribute('checked', '');
     startPositionPin();
+    document.querySelector('.scale__control--value').value = '100%';
   }
 
   function getHeatEffect() {
@@ -158,6 +167,7 @@
     removeChecked();
     heatEffect.setAttribute('checked', '');
     startPositionPin();
+    document.querySelector('.scale__control--value').value = '100%';
   }
 
   window.util.originalEffect.addEventListener('click', getOriginalEffect);
@@ -231,6 +241,8 @@
 
   window.setupUploadImg = {
     removeChecked: removeChecked,
+    decreaseSizeImg: decreaseSizeImg,
+    increaseSizeImg: increaseSizeImg,
     getOriginalEffect: getOriginalEffect,
     getChromeEffect: getChromeEffect,
     getSepiaEffect: getSepiaEffect,

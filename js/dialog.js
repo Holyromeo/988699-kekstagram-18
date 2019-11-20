@@ -55,6 +55,8 @@
     document.querySelector('#effect-heat').removeAttribute('checked', '');
     document.removeEventListener('click', removeSuccessTemplate);
     document.removeEventListener('keydown', closeSuccessMessage);
+    document.querySelector('.scale__control--smaller').removeEventListener('click', window.setupUploadImg.decreaseSizeImg);
+    document.querySelector('.scale__control--bigger').removeEventListener('click', window.setupUploadImg.increaseSizeImg);
     setup.value = '';
     window.util.resizableImg.className = 'img-upload__preview effect__preview--none';
     window.util.resizableImg.style.filter = '';
@@ -100,6 +102,7 @@
   function addChangeEffects() {
     var file = setup.files[0];
     var fileName = file.name.toLowerCase();
+
     if (!setup.files.length) {
       return;
     }
