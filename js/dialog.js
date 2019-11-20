@@ -107,6 +107,9 @@
       return;
     }
 
+    document.querySelector('.scale__control--smaller').addEventListener('click', window.setupUploadImg.decreaseSizeImg);
+    document.querySelector('.scale__control--bigger').addEventListener('click', window.setupUploadImg.increaseSizeImg);
+
     window.util.originalEffect.setAttribute('checked', '');
     window.util.originalEffect.focus();
 
