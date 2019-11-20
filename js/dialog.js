@@ -51,7 +51,6 @@
 
   function resetAllEffects() {
     window.util.resizableImg.removeAttribute('style');
-    window.setupUploadImg.removeChecked;
     document.querySelector('#effect-heat').removeEventListener('click', window.setupUploadImg.getHeatEffect);
     document.querySelector('#effect-heat').removeAttribute('checked', '');
     document.removeEventListener('click', removeSuccessTemplate);
